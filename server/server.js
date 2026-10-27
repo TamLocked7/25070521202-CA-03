@@ -9,13 +9,38 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api/expenses", require("./routes/expenses"));
-app.use("/api/goals", require("./routes/goals"));
-app.use("/api/subscriptions", require("./routes/subscriptions"));
+const URI =
+  process.env.MONGO_URI ||
+  "mongodb+srv://TejasTam:tejastam79@cluster0.7kmbtij.mongodb.net/spendwise?retryWrites=true&w=majority";
+
+// Connection helper for serverless / persistent service
+let isConnecting = false;
+async function connectDB() {
+  if (mongoose.connection.readyState === 1 || isConnecting) return;
+  try {
+    isConnecting = true;
+    await mongoose.connect(URI);
+    console.log("MongoDB connected successfully");
+  } catch (err) {
+    console.warn("MongoDB connection warning:", err.message);
+  } finally {
+    isConnecting = false;
+  }
+}
+
+// Connect before request processing
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
+// Routes (supports both /api-prefixed and root-relative for Vercel services)
+app.use(["/api/expenses", "/expenses"], require("./routes/expenses"));
+app.use(["/api/goals", "/goals"], require("./routes/goals"));
+app.use(["/api/subscriptions", "/subscriptions"], require("./routes/subscriptions"));
 
 // Health check endpoint
-app.get("/api/health", (req, res) => {
+app.get(["/api/health", "/health"], (req, res) => {
   const isConnected = mongoose.connection.readyState === 1;
   res.json({
     status: "ok",
@@ -30,21 +55,20 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+app.get(["/api", "/"], (req, res) => {
+  res.json({ status: "ok", message: "SpendWise Express API service is active 🚀" });
+});
+
 const path = require("path");
 const fs = require("fs");
 
-// Serve frontend static build in production if available
+// Serve frontend static build in production if available locally
 const clientDistPath = path.join(__dirname, "../client/dist");
 if (fs.existsSync(clientDistPath)) {
   app.use(express.static(clientDistPath));
   app.get("*", (req, res, next) => {
     if (req.path.startsWith("/api")) return next();
     res.sendFile(path.join(clientDistPath, "index.html"));
-  });
-} else {
-  // Root welcome if client not built
-  app.get("/", (req, res) => {
-    res.send("<h1>SpendWise Expense Tracker API is running! 🚀</h1><p>Visit /api/expenses or /api/health</p>");
   });
 }
 
@@ -55,19 +79,12 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-const URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/expensetracker";
-
-// Start server first so endpoints are accessible, then establish MongoDB connection
-const server = app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
-
-mongoose
-  .connect(URI)
-  .then(() => {
-    console.log("MongoDB connected successfully to:", URI);
-  })
-  .catch((err) => {
-    console.warn("MongoDB connection warning:", err.message);
-    console.warn("The server is still active, but database operations will require MongoDB running at " + URI);
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
   });
+}
+
+connectDB();
+
+module.exports = app;
