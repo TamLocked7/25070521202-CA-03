@@ -3262,24 +3262,433 @@ input, select, textarea {
   }
 }
 
-/* Responsive adjustments */
+/* ==========================================================================
+   Mobile Bottom Navigation Dock (Native Mobile App Experience)
+   ========================================================================== */
+
+.mobile-bottom-nav {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--bg-card-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--border-color);
+    padding: 6px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 6px 4px;
+    border-radius: var(--radius-md);
+    font-size: 10px;
+    font-weight: 700;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    flex: 1;
+    max-width: 64px;
+    text-align: center;
+  }
+
+  .mobile-nav-icon {
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-nav-item.active {
+    color: var(--accent);
+  }
+
+  .mobile-nav-item.active .mobile-nav-icon {
+    transform: scale(1.18);
+  }
+
+  .mobile-nav-item:active {
+    transform: scale(0.92);
+  }
+
+  /* Floating Quick Action Button in Center */
+  .mobile-nav-fab {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: #ffffff;
+    border: 3px solid var(--bg-card);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 18px var(--accent-glow);
+    margin-top: -22px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav-fab:active {
+    transform: scale(0.9);
+  }
+
+  .mobile-fab-icon {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: -2px;
+  }
+}
+
+/* ==========================================================================
+   Comprehensive Mobile & Tablet Responsive Layout Adaptations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar {
+    padding: 10px 14px 8px;
+  }
+
   .nav-container {
     flex-direction: column;
     align-items: stretch;
+    gap: 8px;
   }
-  .nav-tabs {
-    overflow-x: auto;
-    white-space: nowrap;
-    justify-content: flex-start;
+
+  /* Row 1: Brand & Actions */
+  .nav-brand {
+    gap: 10px;
   }
+
+  .brand-logo-glow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-logo-icon {
+    font-size: 20px;
+  }
+
+  .brand-text h2 {
+    font-size: 18px;
+  }
+
   .nav-actions {
-    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-left: auto;
   }
-  .form-row-2 {
+
+  /* Hide top desktop Add button on mobile; the floating FAB handles it */
+  .nav-actions .add-btn {
+    display: none;
+  }
+
+  .status-pill {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .student-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  /* Row 2: Smooth Horizontal Scrollable Pills */
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    scrollbar-width: none;
+    padding: 3px;
+    gap: 5px;
+    border-radius: var(--radius-pill);
+  }
+
+  .nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Main Content: Add bottom clearance for mobile dock */
+  .main-content {
+    padding: 14px 12px calc(85px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Hero Banner */
+  .hero-banner {
+    padding: 18px 16px;
+    margin-bottom: 16px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .hero-title-group h1 {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  .hero-subtitle {
+    font-size: 12.5px;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .hero-actions button {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 10px;
+    font-size: 12.5px;
+  }
+
+  /* Top 6 KPI Metric Cards: Mobile 2-column Grid */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  /* Featured Net Balance Wallet Card spans 2 columns */
+  .kpi-grid > .kpi-card:first-child {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--accent-glow-subtle) 0%, var(--bg-card) 100%);
+    border-color: var(--accent);
+  }
+
+  .kpi-card {
+    padding: 14px 12px;
+  }
+
+  .kpi-title {
+    font-size: 11.5px;
+  }
+
+  .kpi-icon-wrap {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .kpi-value {
+    font-size: 19px;
+    margin: 6px 0 4px;
+  }
+
+  .kpi-trend-pill {
+    font-size: 10.5px;
+    padding: 2px 7px;
+  }
+
+  /* Page Headers & Action Controls */
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .page-header-actions {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .page-header-actions button {
+    flex: 1;
+    min-width: 130px;
+    justify-content: center;
+    padding: 9px 12px;
+  }
+
+  /* Two column and form layouts stack on mobile */
+  .grid-two-col {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-row-2,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Transaction Filter Bar on Mobile */
+  .filter-bar {
+    padding: 14px 12px;
+  }
+
+  .filter-row-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-input-wrap {
+    width: 100%;
+  }
+
+  .filter-row-secondary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .filter-item {
+    width: 100%;
+  }
+
+  .filter-item select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* Tables: Touch-friendly horizontal scroll */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -12px;
+    padding: 0 12px;
+    border-radius: 0;
+  }
+
+  .transactions-table {
+    min-width: 620px;
+  }
+
+  .pagination-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Budgets, Goals & Subscriptions */
+  .budget-summary-grid,
+  .category-budgets-grid,
+  .goals-grid,
+  .subscriptions-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Analytics Charts: Full width */
+  .analytics-grid,
+  .charts-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .chart-card {
+    padding: 16px 12px;
+    overflow-x: auto;
+  }
+
+  /* Mobile Bottom Sheet Modals */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-content {
+    border-radius: 24px 24px 0 0;
+    max-height: 88vh;
+    max-width: 100%;
+    width: 100%;
+    padding: 22px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUpSheet {
+    from {
+      transform: translateY(100%);
+      opacity: 0.5;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Toast notification on mobile */
+  .toast-container {
+    top: 14px;
+    left: 12px;
+    right: 12px;
+    max-width: calc(100% - 24px);
+  }
+}
+
+/* Extra small devices (phones <= 480px) */
+@media (max-width: 480px) {
+  .brand-tag {
+    display: none;
+  }
+
+  .status-text {
+    display: none;
+  }
+
+  .status-pill {
+    padding: 6px;
+    border-radius: 50%;
+  }
+
+  .kpi-value {
+    font-size: 18px;
+  }
+
+  .filter-row-secondary {
     grid-template-columns: 1fr;
   }
-  .grid-two-col {
+
+  .hero-actions {
     grid-template-columns: 1fr;
   }
 }
