@@ -133,13 +133,13 @@ Open `http://localhost:5173` in your browser.
 
 ---
 
-## 🌐 Full Deployment Guide (Free Cloud Hosting)
+## 🌐 Full Deployment Guide (Vercel & Cloud Hosting)
 
-SpendWise can be deployed online to share with your professor or host on a public URL.
+SpendWise is configured for **1-Click Full-Stack Deployment on Vercel** (both the React frontend and Express serverless backend deploy on a single Vercel URL)!
 
 ### Step 1: Set Up Free Cloud MongoDB (MongoDB Atlas)
 1. Go to [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) and sign up for a free account.
-2. Create a **Free Shared M0 Cluster** (select any nearby AWS/Google Cloud region).
+2. Create a **Free Shared M0 Cluster** (select any nearby region).
 3. Under **Security → Database Access**, create a user (e.g. `admin`) with a secure password.
 4. Under **Security → Network Access**, click **Add IP Address** → choose **Allow Access From Anywhere (`0.0.0.0/0`)**.
 5. Go to **Database → Connect → Drivers (Node.js)** and copy your connection string:
@@ -149,35 +149,21 @@ SpendWise can be deployed online to share with your professor or host on a publi
 
 ---
 
-### Step 2: Option A — Deploy All-in-One on Render (Recommended)
-This hosts both the React frontend and Express backend on a single free live URL (`https://your-app.onrender.com`). Zero CORS issues!
-
-1. Push this project to GitHub.
-2. Go to [render.com](https://render.com) and create a free account.
-3. Click **New +** → **Web Service**.
-4. Connect your GitHub repository.
-5. Configure the following fields:
-   - **Name:** `spendwise` (or your choice)
-   - **Environment:** `Node`
-   - **Region:** Any region close to you
-   - **Branch:** `main` (or `master`)
-   - **Build Command:** `npm run build`
-   - **Start Command:** `npm start`
-   - **Plan Type:** `Free`
-6. Click **Advanced** → **Add Environment Variable**:
-   - Key: `MONGO_URI`
-   - Value: Your MongoDB Atlas connection string from Step 1
-   - Key: `NODE_ENV`
-   - Value: `production`
-7. Click **Create Web Service**. Render will automatically build the React client, install dependencies, and launch your live app!
+### Step 2: Deploy All-in-One on Vercel (Recommended)
+1. Go to [vercel.com](https://vercel.com) and log in with your GitHub account.
+2. Click **Add New…** → **Project**.
+3. Find your `spendwise-mern` (or `25070521202`) repository and click **Import**.
+4. Leave **Framework Preset** as Other and leave **Root Directory** as `./` (default).
+5. Open the **Environment Variables** section and add:
+   - **Key:** `MONGO_URI`
+   - **Value:** Your MongoDB Atlas connection string from Step 1
+6. Click **Deploy**.
+7. In ~60 seconds, Vercel will build the React frontend and deploy your Express serverless API at `https://your-project.vercel.app`!
 
 ---
 
-### Step 2: Option B — Split Deployment (Vercel Frontend + Render Backend)
-If you prefer hosting the React frontend on Vercel and the Express API on Render:
-
-1. **Deploy Backend on Render:**
-   - Follow Step 2A with Root Directory set to `server`, Build Command `npm install`, Start Command `npm start`.
+### Alternative: Deploy on Render
+Follow the Render guide using `npm run build` and `npm start`.
    - Copy the backend URL (e.g. `https://spendwise-api.onrender.com`).
 2. **Deploy Frontend on Vercel:**
    - Go to [vercel.com](https://vercel.com) → **Add New Project** → Import repository.
