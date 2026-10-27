@@ -533,6 +533,12 @@ input, select, textarea {
   transform: rotate(20deg) scale(1.05);
 }
 
+.theme-toggle.active {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow-subtle);
+}
+
 /* ==========================================================================
    Buttons & Interactive Elements
    ========================================================================== */

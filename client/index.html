@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-color-theme="emerald">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpendWise — Advanced MERN Personal Finance & Expense Tracker</title>
+    <script>
+      // Enforce dark mode by default immediately to prevent any light flash
+      document.documentElement.dataset.theme = "dark";
+      const savedTheme = localStorage.getItem("spendwise_theme") || "emerald";
+      document.documentElement.dataset.colorTheme = savedTheme;
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

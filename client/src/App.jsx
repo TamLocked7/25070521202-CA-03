@@ -17,7 +17,7 @@ import "./App.css";
 export default function App() {
   // Navigation & Theme
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [dark, setDark] = useState(() => localStorage.getItem("spendwise_dark") === "1");
+  const [dark, setDark] = useState(true);
   const [colorTheme, setColorTheme] = useState(() => localStorage.getItem("spendwise_theme") || "emerald");
   const [rollNo, setRollNo] = useState(() => localStorage.getItem("spendwise_roll") || "25070521202");
 

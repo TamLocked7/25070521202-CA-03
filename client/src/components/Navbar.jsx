@@ -103,12 +103,12 @@ export default function Navbar({
 
           {/* Dark Mode Switch */}
           <button
-            className="theme-toggle"
+            className={`theme-toggle ${dark ? "active" : ""}`}
             onClick={() => setDark(!dark)}
-            title={dark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            title={dark ? "Dark Mode is ON (Click to toggle)" : "Switch to Dark Mode"}
             aria-label="Toggle Theme"
           >
-            <span className="theme-toggle-icon">{dark ? "☀️" : "🌙"}</span>
+            <span className="theme-toggle-icon">{dark ? "🌙" : "☀️"}</span>
           </button>
 
           {/* Quick Add Button */}
