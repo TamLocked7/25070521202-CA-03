@@ -7,7 +7,7 @@ A comprehensive, interactive, full-stack **MERN (MongoDB, Express.js, React, Nod
 ## 📌 Project Overview
 
 - **Project Title:** SpendWise: Personal Finance & Expense Management System
-- **Student Roll Number:** `YOURROLL`
+- **Student Roll Number:** `25070521202`
 - **Architecture:** MERN Stack (MongoDB, Express, React 18, Node.js + Vite)
 - **Design System:** Custom CSS3 with Dark/Light theme switching, CSS Variables, and Glassmorphism
 

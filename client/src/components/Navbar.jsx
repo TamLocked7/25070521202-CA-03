@@ -7,7 +7,7 @@ export default function Navbar({
   setColorTheme,
   serverStatus,
   onOpenNewTransaction,
-  rollNo = "YOURROLL",
+  rollNo = "25070521202",
 }) {
   const tabs = [
     { id: "dashboard", label: "Dashboard", icon: "📊" },
