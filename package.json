@@ -1,0 +1,16 @@
+{
+  "name": "spendwise-mern-app",
+  "version": "1.0.0",
+  "description": "SpendWise - Advanced Personal Finance & Expense Tracker (MERN)",
+  "main": "server/server.js",
+  "scripts": {
+    "build": "npm --prefix client install && npm --prefix client run build && npm --prefix server install",
+    "start": "node server/server.js",
+    "install:all": "npm --prefix client install && npm --prefix server install",
+    "client": "npm --prefix client run dev",
+    "server": "npm --prefix server start"
+  },
+  "keywords": ["mern", "expense-tracker", "finance", "react", "express", "mongodb"],
+  "author": "",
+  "license": "ISC"
+}
